@@ -1,0 +1,43 @@
+package com.cesu.xml_students.data_acess;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import java.io.File;
+
+public class AlumnosParser {
+
+    private static final String LINUX_PATH_REGEX = 
+        = "^/([a-zA-Z0-9_-]+/?)+[a-zA-Z0-9_-]+\\.xml$";
+    private String filePath;
+    private Document document = null;
+
+    public AlumnosParser(String filePath) {
+        if (filePath.isBlank() || filePath == null)
+            throw new IllegalArgumentException;
+
+        this.filePath = filePath;
+    }
+
+
+    public String getFilePath() {
+        return this.filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void readFile() {
+        File alumnosData = new File(filePath);
+    }
+
+    private boolean checkPath() {
+        String os = System.getProperty("os.name");
+        
+    }
+    
+    
+}
