@@ -54,6 +54,7 @@ public class AlumnosParser {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             document = builder.parse(alumnosData);
+            document.getDocumentElement().normalize();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return false;
@@ -63,8 +64,24 @@ public class AlumnosParser {
 
     public List<Alumno> loadAlumnos() {
         NodeList alumnos = document.getElementsByTagName("Alumno");
-        for (Node alumno : alumnos) {
+        List<Alumno> alumList = new ArrayList<>();
+        for (int i = 0; i < alumnos.getLength(); i++) {
+            Element alumno = (Element) alumnos.item(i);
             
+        }
+    }
+
+    private Alumno parseData(Element alumno) {
+        NodeList childNodes = alumno.getChildNodes();
+        for (int i = 0; i < childNodes.getLength(); i++) {
+            Element child = (Element) childNodes.item(i);
+            String tagName = child.getTagName();
+            switch (tagName) {
+                case "id":
+
+                    break;
+                case ""
+            }
         }
     }
 
