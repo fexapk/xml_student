@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Alumno {
     private int id;
     private String nombre, apellido, grado, fechaFin;
-
+    private boolean isGraduado = false;
 
     public Alumno(int id, String nombre, String apellido, String grado, String fechaFin) {
         this.id = id;
@@ -59,6 +59,13 @@ public class Alumno {
         this.fechaFin = fechaFin;
     }
 
+    public boolean isGraduado() {
+        return isGraduado;
+    }
+
+    public void setGraduado(boolean isGraduado) {
+        this.isGraduado = isGraduado;
+    }
 
     @Override
     public String toString() {

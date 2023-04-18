@@ -62,27 +62,75 @@ public class AlumnosParser {
         return true;
     }
 
+    /**
+     * Load all the Data to memory in a ArrayList
+     * @return
+     */
     public List<Alumno> loadAlumnos() {
         NodeList alumnos = document.getElementsByTagName("Alumno");
         List<Alumno> alumList = new ArrayList<>();
         for (int i = 0; i < alumnos.getLength(); i++) {
             Element alumno = (Element) alumnos.item(i);
-            
+            alumList.add(parseData(alumno));
         }
+        return alumList;
     }
 
+    /**
+     * Parses the data inside of each element to an Alumno Obj
+     * @param alumno
+     * @return
+     */
     private Alumno parseData(Element alumno) {
         NodeList childNodes = alumno.getChildNodes();
+        // temp variables
+        int id = 0;
+        String nombre = null,
+               apellido = null,
+               grado = null,
+               fechaFin = null;
+
         for (int i = 0; i < childNodes.getLength(); i++) {
             Element child = (Element) childNodes.item(i);
             String tagName = child.getTagName();
+            String data = child.getTextContent();
+
             switch (tagName) {
                 case "id":
-
+                    id = Integer.parseInt(data);
                     break;
-                case ""
+                case "Nombre":
+                    nombre = data;
+                    break;
+                case "Apellido":
+                    apellido = data;
+                    break;
+                case "Grado":
+                    grado = data;
+                case "FechaFin":
+                    fechaFin = data;
+                break;
+                default:
             }
         }
+        Alumno temp = new Alumno(id, nombre, apellido, grado, fechaFin);
+        temp.setGraduado(defineGraduado(alumno.getAttribute("Graduado")));
+
+        return temp;
+    }
+
+    /**
+     * Return wether the Gradudado attribute exist and should be modified
+     * @param data
+     * @return
+     */
+    private boolean defineGraduado(String data) {
+        if (data == null) {
+            return false;
+        } else if (data.equalsIgnoreCase("Si")) {
+            return true;
+        } 
+        return false;
     }
 
     /**
