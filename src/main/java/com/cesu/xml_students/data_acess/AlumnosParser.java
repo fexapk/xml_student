@@ -2,13 +2,17 @@ package com.cesu.xml_students.data_acess;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+
+import com.cesu.xml_students.pjo.Alumno;
 
 import java.io.File;
-import java.io.IOException;
+
+import java.util.List;
+import java.util.ArrayList;
 
 public class AlumnosParser {
 
@@ -26,7 +30,6 @@ public class AlumnosParser {
         this.filePath = filePath;
     }
 
-
     public String getFilePath() {
         return this.filePath;
     }
@@ -41,7 +44,6 @@ public class AlumnosParser {
         return document;
     }
     
-
     /**
      * Using JAXP reads File and parse it's content to DOM
      * @return (boolean) 
@@ -59,6 +61,13 @@ public class AlumnosParser {
         return true;
     }
 
+    public List<Alumno> loadAlumnos() {
+        NodeList alumnos = document.getElementsByTagName("Alumno");
+        for (Node alumno : alumnos) {
+            
+        }
+    }
+
     /**
      * Checks the give path to meet the path regex from linux or windows
      * @param path
@@ -70,7 +79,5 @@ public class AlumnosParser {
             return path.matches(WINDOWS_PATH_REGEX);
         else 
             return path.matches(LINUX_PATH_REGEX);       
-    }
-    
-    
+    } 
 }
