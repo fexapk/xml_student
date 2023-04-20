@@ -75,9 +75,9 @@ public class Alumno {
             ", apellido='" + getApellido() + "'" +
             ", grado='" + getGrado() + "'" +
             ", fechaFin='" + getFechaFin() + "'" +
+            ", isGraduado='" + isGraduado() + "'" +
             "}";
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -87,12 +87,11 @@ public class Alumno {
             return false;
         }
         Alumno alumno = (Alumno) o;
-        return id == alumno.id && Objects.equals(nombre, alumno.nombre) && Objects.equals(apellido, alumno.apellido) && Objects.equals(grado, alumno.grado) && Objects.equals(fechaFin, alumno.fechaFin);
+        return id == alumno.id && Objects.equals(nombre, alumno.nombre) && Objects.equals(apellido, alumno.apellido) && Objects.equals(grado, alumno.grado) && Objects.equals(fechaFin, alumno.fechaFin) && isGraduado == alumno.isGraduado;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, apellido, grado, fechaFin);
+        return Objects.hash(id, nombre, apellido, grado, fechaFin, isGraduado);
     }
-
 }
