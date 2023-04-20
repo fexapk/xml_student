@@ -57,8 +57,6 @@ public class AlumnosTransformer {
         
     }
 
-    
-
     /**
      * Transforms Alumno Obj to it's dom counterpart
      * @param alumno (Alumno)
@@ -79,6 +77,12 @@ public class AlumnosTransformer {
         return alumElement;
     }
 
+    /**
+     * Creates DOM element with given tag and text node
+     * @param tag (String)
+     * @param data (String)
+     * @return (Element)
+     */
     private Element createStrData(String tag, String data) {
         Element id = document.createElement("id");
         id.appendChild(document.createTextNode(data));
