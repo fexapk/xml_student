@@ -67,6 +67,8 @@ public class AlumnosParser {
      * @return
      */
     public List<Alumno> loadAlumnos() {
+        if (document == null)
+            throw new IllegalStateException("Can't load info to memory if file has not been read");
         NodeList alumnos = document.getElementsByTagName("Alumno");
         List<Alumno> alumList = new ArrayList<>();
         for (int i = 0; i < alumnos.getLength(); i++) {

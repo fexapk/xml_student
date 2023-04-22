@@ -15,12 +15,13 @@ import javax.xml.transform.stream.StreamResult;
 
 import java.io.File;
 
+import java.lang.IllegalArgumentException;
+
 public class AlumnosTransformer {
 
     private String outFilePath = null;
     private Document document = null;
     private List<Alumno> alumList = null;
-
 
     public AlumnosTransformer(String outFilePath, Document document, List<Alumno> alumList) {
         if (outFilePath.isBlank() || outFilePath == null)
@@ -52,17 +53,13 @@ public class AlumnosTransformer {
         }
         return true;
     }
-    
-    public void updateDoc() {
-        
-    }
 
     /**
      * Transforms Alumno Obj to it's dom counterpart
      * @param alumno (Alumno)
      * @return (Element)
      */
-    private  Element transformAlumno(Alumno alumno) {
+    public Element transformAlumno(Alumno alumno) {
         Element alumElement = document.createElement("Alumno");
 
         Element id = document.createElement("id");
@@ -88,5 +85,4 @@ public class AlumnosTransformer {
         id.appendChild(document.createTextNode(data));
         return id;
     }
-
 }
