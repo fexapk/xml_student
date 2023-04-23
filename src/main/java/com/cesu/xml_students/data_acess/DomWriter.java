@@ -1,9 +1,6 @@
 package com.cesu.xml_students.data_acess;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import com.cesu.xml_students.pojo.*;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -33,7 +30,7 @@ public class DomWriter {
      * Basically writes dom content to xml file, returns true if it succeded in writing the file
      * @return (boolean)
      */
-    public boolean saveDocToFile() {
+    public boolean save() {
         try {
             TransformerFactory factory = TransformerFactory.newInstance();
             Transformer transformer = factory.newTransformer();
@@ -50,35 +47,4 @@ public class DomWriter {
         return true;
     }
 
-    /**
-     * Transforms Alumno Obj to it's dom counterpart
-     * @param alumno (Alumno)
-     * @return (Element)
-     */
-    private Element transformData(Alumno alumno) {
-        Element alumElement = document.createElement("Alumno");
-
-        Element id = document.createElement("id");
-        id.appendChild(document.createTextNode(String.valueOf(alumno.getId())));
-        alumElement.appendChild(id);
-
-        alumElement.appendChild(createStrData("Nombre", alumno.getNombre()));
-        alumElement.appendChild(createStrData("Apellido", alumno.getApellido()));
-        alumElement.appendChild(createStrData("Grado", alumno.getGrado()));
-        alumElement.appendChild(createStrData("FechaFin", alumno.getFechaFin()));
-
-        return alumElement;
-    }
-
-    /**
-     * Creates DOM element with given tag and text node
-     * @param tag (String)
-     * @param data (String)
-     * @return (Element)
-     */
-    private Element createStrData(String tag, String data) {
-        Element id = document.createElement("id");
-        id.appendChild(document.createTextNode(data));
-        return id;
-    }
 }

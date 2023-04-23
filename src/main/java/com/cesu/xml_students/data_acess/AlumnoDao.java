@@ -2,6 +2,11 @@ package com.cesu.xml_students.data_acess;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+
+import javax.swing.event.DocumentEvent;
+
+import java.util.HashMap;
 
 import java.lang.IllegalArgumentException;
 
@@ -15,13 +20,17 @@ import com.cesu.xml_students.pojo.*;
 public class AlumnoDao implements Dao<Alumno> {
 
     private Document document = null;
-    private NodeList alumnoNodes = null;
+
+    private List<Alumno> alumnos;
+    private Map<Integer , Element> queryData;
 
     public AlumnoDao(Document document) {
         if (document == null)
-            throw new IllegalArgumentException("document must point to a dom obj");
+            throw new IllegalArgumentException("document must point to a dom");
         this.document = document;
-        alumnoNodes = document.getElementsByTagName("Alumno");
+        alumnos = new ArrayList<>();
+        queryData = new HashMap<>();
+        populateStructures();
     }
 
     /**
@@ -30,19 +39,51 @@ public class AlumnoDao implements Dao<Alumno> {
      */
     @Override
     public List<Alumno> getAll() {
-        if (document == null)
-            throw new IllegalStateException("Can't load info to memory if file has not been read");
-        List<Alumno> alumList = new ArrayList<>();
-        for (int i = 0; i < alumnoNodes.getLength(); i++) {
-            Element alumno = (Element) alumnoNodes.item(i);
-            alumList.add(parse(alumno));
-        }
-        return alumList;
+        return alumnos;
     }
 
+    @Override
+    public Alumno get(int id) {
+        return null;
+    }
 
+    @Override
+    public void save(Alumno t) {
+        alumnos.add(new Alumno(t));
 
+        Element tElement = transform(t);
+        document.getDocumentElement().appendChild(tElement);
 
+        queryData.put(t.getId(), tElement);
+    }
+
+    @Override
+    public void delete(int id) {
+        Element rmElement = queryData.get(id);
+        rmElement.getParentNode().removeChild(rmElement);
+        queryData.remove(id);
+    }
+
+    @Override
+    public void update(int id, String[] params) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    private void populateStructures() {
+        if (document == null)
+            throw new IllegalStateException("Can't load info to memory if file has not been read");
+
+        NodeList nodes = document.getElementsByTagName("Alumno");
+        for (int i = 0; i < nodes.getLength(); i++) {
+
+            Element alumno = (Element) nodes.item(i);
+            Alumno tmp = parse(alumno);
+
+            alumnos.add(new Alumno(tmp));
+            queryData.put(tmp.getId(), alumno);
+        }
+    }
 
     /**
      * Parses the data inside of each element to an Alumno Obj

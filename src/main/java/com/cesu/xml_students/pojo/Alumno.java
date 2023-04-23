@@ -2,7 +2,7 @@ package com.cesu.xml_students.pojo;
 
 import java.util.Objects;
 
-public class Alumno {
+public class Alumno implements Comparable<Alumno> {
     private int id;
     private String nombre, apellido, grado, fechaFin;
     private boolean isGraduado = false;
@@ -93,5 +93,10 @@ public class Alumno {
     @Override
     public int hashCode() {
         return Objects.hash(id, nombre, apellido, grado, fechaFin, isGraduado);
+    }
+
+    @Override
+    public int compareTo(Alumno o) {
+        return Integer.compare(this.id, o.id);
     }
 }
