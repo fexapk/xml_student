@@ -2,9 +2,8 @@ package com.cesu.xml_students.data_acess;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
-
-import javax.swing.event.DocumentEvent;
 
 import java.util.HashMap;
 
@@ -12,7 +11,6 @@ import java.lang.IllegalArgumentException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
 import com.cesu.xml_students.pojo.*;
@@ -44,30 +42,64 @@ public class AlumnoDao implements Dao<Alumno> {
 
     @Override
     public Alumno get(int id) {
-        return null;
+        int index = getIndexById(id);
+        if (index == -1)
+            return null;
+        return new Alumno(alumnos.get(index));
     }
 
     @Override
     public void save(Alumno t) {
-        alumnos.add(new Alumno(t));
+        if (alumnos.contains(t))
+            return;
+        
 
         Element tElement = transform(t);
         document.getDocumentElement().appendChild(tElement);
 
-        queryData.put(t.getId(), tElement);
+        queryData.putIfAbsent(t.getId(), tElement);
     }
 
     @Override
     public void delete(int id) {
         Element rmElement = queryData.get(id);
+        if (rmElement == null) {
+            return;
+        }
         rmElement.getParentNode().removeChild(rmElement);
         queryData.remove(id);
+        alumnos.remove(getIndexById(id));
     }
 
     @Override
     public void update(int id, String[] params) {
-        // TODO Auto-generated method stub
         
+    }
+
+    private void insertIntoList(Alumno alumno) {
+        int previousIndex = getIndexById(alumno.getId()-1);
+
+    }
+
+    /**
+     * Uses binary search to get index of the required id
+     * @param id
+     * @return
+     */
+    private int getIndexById(int id) {
+        int low = 0, high = alumnos.size() - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int guessId = alumnos.get(mid).getId();
+            if (guessId == id) 
+                return mid;
+
+            if (guessId > id) 
+                high = mid -1;
+            else 
+                low = mid + 1;
+        }
+        return -high;
     }
 
     private void populateStructures() {
@@ -83,6 +115,7 @@ public class AlumnoDao implements Dao<Alumno> {
             alumnos.add(new Alumno(tmp));
             queryData.put(tmp.getId(), alumno);
         }
+        Collections.sort(alumnos);
     }
 
     /**

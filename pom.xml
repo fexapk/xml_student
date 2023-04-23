@@ -4,7 +4,7 @@
   <groupId>com.cesu.xml_students</groupId>
   <artifactId>xml_student</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.5-SNAPSHOT</version>
   <name>xml_student</name>
   <url>http://maven.apache.org</url>
   <build>
