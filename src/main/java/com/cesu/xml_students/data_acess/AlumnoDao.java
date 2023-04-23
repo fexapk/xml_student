@@ -2,7 +2,6 @@ package com.cesu.xml_students.data_acess;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Map;
 
 import java.util.HashMap;
@@ -18,15 +17,12 @@ import com.cesu.xml_students.pojo.*;
 public class AlumnoDao implements Dao<Alumno> {
 
     private Document document = null;
-
-    private List<Alumno> alumnos;
     private Map<Integer , Element> queryData;
 
     public AlumnoDao(Document document) {
         if (document == null)
             throw new IllegalArgumentException("document must point to a dom");
         this.document = document;
-        alumnos = new ArrayList<>();
         queryData = new HashMap<>();
         populateStructures();
     }
@@ -37,22 +33,22 @@ public class AlumnoDao implements Dao<Alumno> {
      */
     @Override
     public List<Alumno> getAll() {
+        List<Alumno> alumnos = new ArrayList<>();
+        NodeList nodes = document.getElementsByTagName("Alumno");
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Element aElement = (Element) nodes.item(i);
+            alumnos.add(parse(aElement));
+        }
         return alumnos;
     }
 
     @Override
     public Alumno get(int id) {
-        int index = getIndexById(id);
-        if (index == -1)
-            return null;
-        return new Alumno(alumnos.get(index));
+        return parse(queryData.get(id));
     }
 
     @Override
     public void save(Alumno t) {
-        if (alumnos.contains(t))
-            return;
-        
 
         Element tElement = transform(t);
         document.getDocumentElement().appendChild(tElement);
@@ -68,38 +64,11 @@ public class AlumnoDao implements Dao<Alumno> {
         }
         rmElement.getParentNode().removeChild(rmElement);
         queryData.remove(id);
-        alumnos.remove(getIndexById(id));
     }
 
     @Override
-    public void update(int id, String[] params) {
-        
-    }
-
-    private void insertIntoList(Alumno alumno) {
-        int previousIndex = getIndexById(alumno.getId()-1);
-
-    }
-
-    /**
-     * Uses binary search to get index of the required id
-     * @param id
-     * @return
-     */
-    private int getIndexById(int id) {
-        int low = 0, high = alumnos.size() - 1;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            int guessId = alumnos.get(mid).getId();
-            if (guessId == id) 
-                return mid;
-
-            if (guessId > id) 
-                high = mid -1;
-            else 
-                low = mid + 1;
-        }
-        return -high;
+    public void update(int id, Alumno t) {
+        queryData.put(id, transform(t));
     }
 
     private void populateStructures() {
@@ -112,10 +81,8 @@ public class AlumnoDao implements Dao<Alumno> {
             Element alumno = (Element) nodes.item(i);
             Alumno tmp = parse(alumno);
 
-            alumnos.add(new Alumno(tmp));
             queryData.put(tmp.getId(), alumno);
         }
-        Collections.sort(alumnos);
     }
 
     /**
