@@ -1,11 +1,9 @@
-package com.cesu.xml_students.data_writing;
-
-import com.cesu.xml_students.pjo.*;
+package com.cesu.xml_students.data_acess;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.util.List;
+import com.cesu.xml_students.pojo.*;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -17,20 +15,18 @@ import java.io.File;
 
 import java.lang.IllegalArgumentException;
 
-public class AlumnosTransformer {
+public class DomWriter {
 
     private String outFilePath = null;
     private Document document = null;
-    private List<Alumno> alumList = null;
 
-    public AlumnosTransformer(String outFilePath, Document document, List<Alumno> alumList) {
+    public DomWriter(String outFilePath, Document document) {
         if (outFilePath.isBlank() || outFilePath == null)
             throw new IllegalArgumentException("Must be a valid path");
-        if (document == null || alumList == null)
+        if (document == null)
             throw new IllegalArgumentException("Either document or list must point somewhere");
         this.outFilePath = outFilePath;
         this.document = document;
-        this.alumList = alumList;
     }
 
     /**
@@ -59,7 +55,7 @@ public class AlumnosTransformer {
      * @param alumno (Alumno)
      * @return (Element)
      */
-    public Element transformAlumno(Alumno alumno) {
+    private Element transformData(Alumno alumno) {
         Element alumElement = document.createElement("Alumno");
 
         Element id = document.createElement("id");

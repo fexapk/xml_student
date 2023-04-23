@@ -1,4 +1,4 @@
-package com.cesu.xml_students.pjo;
+package com.cesu.xml_students.pojo;
 
 import java.util.Objects;
 
