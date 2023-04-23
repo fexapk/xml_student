@@ -68,7 +68,13 @@ public class AlumnoDao implements Dao<Alumno> {
 
     @Override
     public void update(int id, Alumno t) {
-        queryData.put(id, transform(t));
+        Element root = document.getDocumentElement();
+        root.removeChild(queryData.get(id));
+
+        Element updatedAlumno = transform(t);
+        root.appendChild(updatedAlumno);
+
+        queryData.put(id, updatedAlumno);
     }
 
     private void populateStructures() {
