@@ -1,53 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Alumnos>
-  	
-  <Alumno Graduado="Si">
-    		
-    <id>1</id>
-    		
-    <Nombre>Rubén</Nombre>
-    		
-    <Apellido>Carrasco</Apellido>
-    		
-    <Grado>Imagen</Grado>
-    		
-    <FechaFin>23062022</FechaFin>
-    	
-  </Alumno>
-  	
-  <Alumno>
-    		
-    <id>2</id>
-    		
-    <Nombre>Alex</Nombre>
-    		
-    <Apellido>Fernández</Apellido>
-    		
-    <Grado>DAM</Grado>
-    		
-    <FechaFin>23062022</FechaFin>
-    	
-  </Alumno>
-  
-  <Alumno>
-    <id>3</id>
-    <Nombre>Jordi</Nombre>
-    <Apellido>Wild</Apellido>
-    <Grado>CEUS</Grado>
-    <FechaFin>20020202</FechaFin>
-  </Alumno>
-  <Alumno>
-    <id>4</id>
-    <Nombre>Romber</Nombre>
-    <Apellido>Soper</Apellido>
-    <Grado>DES</Grado>
-    <FechaFin>20050802</FechaFin>
-  </Alumno>
-  <Alumno>
-    <id>45</id>
-    <Nombre>Samuel</Nombre>
-    <Apellido>Slism</Apellido>
-    <Grado>ROM</Grado>
-    <FechaFin>20241202</FechaFin>
-  </Alumno>
+	<Alumno Graduado="Si">
+		<id>1</id>
+		<Nombre>Rubén</Nombre>
+		<Apellido>Carrasco</Apellido>
+		<Grado>Imagen</Grado>
+		<FechaFin>23062022</FechaFin>
+	</Alumno>
+	<Alumno>
+		<id>2</id>
+		<Nombre>Alex</Nombre>
+		<Apellido>Fernández</Apellido>
+		<Grado>DAM</Grado>
+		<FechaFin>23062022</FechaFin>
+	</Alumno>
 </Alumnos>
