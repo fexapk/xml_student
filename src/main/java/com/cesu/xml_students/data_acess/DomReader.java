@@ -9,18 +9,12 @@ import java.io.File;
 
 public class DomReader {
 
-    private static final String 
-        LINUX_PATH_REGEX = "^/([a-zA-Z0-9_-]+/?)+[a-zA-Z0-9_-]+\\.xml$", 
-        WINDOWS_PATH_REGEX = "^(?:[a-zA-Z]:)?(?:\\(?:[a-zA-Z0-9_]+)+)*\\?[a-zA-Z0-9_]+\\.(?:xml|XML)$";
-
     private String filePath;
     private Document document = null;
 
     public DomReader(String filePath) {
         if (filePath.isBlank() || filePath == null)
             throw new IllegalArgumentException("File path can not be null nor blank");
-        if (!checkPath(filePath))
-            throw new IllegalArgumentException("String must match path from OS");
         this.filePath = filePath;
     }
 
@@ -55,17 +49,4 @@ public class DomReader {
         }
         return true;
     }
-
-    /**
-     * Checks the give path to meet the path regex from linux or windows
-     * @param path
-     * @return
-     */
-    private boolean checkPath(String path) {
-        String os = System.getProperty("os.name");
-        if (os.equalsIgnoreCase("Windows"))
-            return path.matches(WINDOWS_PATH_REGEX);
-        else 
-            return path.matches(LINUX_PATH_REGEX);       
-    } 
 }
