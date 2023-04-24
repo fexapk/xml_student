@@ -16,6 +16,10 @@ public class App
 
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
+
+        System.out.println("File to be read (./example.xml): ");
+        System.out.print("> ");
+        final String FILE_PATH = scanner.next();
         
         DomReader reader = new DomReader(FILE_PATH);
         boolean read = reader.read();
@@ -81,8 +85,6 @@ public class App
         }
         scanner.close();
     }
-
-    private static final String FILE_PATH = "src/data_test/alumnos_test.xml";
 
     private static final String MENU = 
         "--------------------------------------\n"

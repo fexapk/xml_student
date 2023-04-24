@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Alumnos>
-	<Alumno Graduado="Si">
-		<id>1</id>
-		<Nombre>Rubén</Nombre>
-		<Apellido>Carrasco</Apellido>
-		<Grado>Imagen</Grado>
-		<FechaFin>23062022</FechaFin>
-	</Alumno>
-	<Alumno>
-		<id>2</id>
-		<Nombre>Alex</Nombre>
-		<Apellido>Fernández</Apellido>
-		<Grado>DAM</Grado>
-		<FechaFin>23062022</FechaFin>
-	</Alumno>
+  	
+  <Alumno Graduado="Si">
+    		
+    <id>1</id>
+    		
+    <Nombre>Rubén</Nombre>
+    		
+    <Apellido>Carrasco</Apellido>
+    		
+    <Grado>Imagen</Grado>
+    		
+    <FechaFin>23062022</FechaFin>
+    	
+  </Alumno>
+  	
+  <Alumno>
+    		
+    <id>2</id>
+    		
+    <Nombre>Alex</Nombre>
+    		
+    <Apellido>Fernández</Apellido>
+    		
+    <Grado>DAM</Grado>
+    		
+    <FechaFin>23062022</FechaFin>
+    	
+  </Alumno>
+  
+  <Alumno>
+    <id>3</id>
+    <Nombre>Ed</Nombre>
+    <Apellido>Fernandez</Apellido>
+    <Grado>ROM</Grado>
+    <FechaFin>20250811</FechaFin>
+  </Alumno>
 </Alumnos>
