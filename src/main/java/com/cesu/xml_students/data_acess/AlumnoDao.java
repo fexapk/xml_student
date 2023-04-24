@@ -44,7 +44,10 @@ public class AlumnoDao implements Dao<Alumno> {
 
     @Override
     public Alumno get(int id) {
-        return parse(queryData.get(id));
+        Element queryE = queryData.get(id);
+        if (queryE == null)
+            return null;
+        return parse(queryE);
     }
 
     @Override
@@ -96,42 +99,16 @@ public class AlumnoDao implements Dao<Alumno> {
      * @param alumno
      * @return
      */
-    private Alumno parse(Element alumno) {
-        NodeList childNodes = alumno.getChildNodes();
-        // temp variables
-        int id = 0;
-        String nombre = null,
-               apellido = null,
-               grado = null,
-               fechaFin = null;
+    private Alumno parse(Element alumnoElement) {
+        int id = Integer.parseInt(alumnoElement.getElementsByTagName("id").item(0).getTextContent());
+        String nombre = alumnoElement.getElementsByTagName("Nombre").item(0).getTextContent();
+        String apellido = alumnoElement.getElementsByTagName("Apellido").item(0).getTextContent();
+        String grado = alumnoElement.getElementsByTagName("Grado").item(0).getTextContent();
+        String fechaFin = alumnoElement.getElementsByTagName("FechaFin").item(0).getTextContent();
 
-        for (int i = 0; i < childNodes.getLength(); i++) {
-            Element child = (Element) childNodes.item(i);
-            String tagName = child.getTagName();
-            String data = child.getTextContent();
-
-            switch (tagName) {
-                case "id":
-                    id = Integer.parseInt(data);
-                    break;
-                case "Nombre":
-                    nombre = data;
-                    break;
-                case "Apellido":
-                    apellido = data;
-                    break;
-                case "Grado":
-                    grado = data;
-                case "FechaFin":
-                    fechaFin = data;
-                break;
-                default:
-            }
-        }
-        Alumno temp = new Alumno(id, nombre, apellido, grado, fechaFin);
-        temp.setGraduado(defineGraduado(alumno.getAttribute("Graduado")));
-
-        return temp;
+        Alumno alumno = new Alumno(id, nombre, apellido, grado, fechaFin);
+        alumno.setGraduado(defineGraduado(alumnoElement.getAttribute("Graduado")));
+        return alumno;
     }
 
     /**
@@ -175,8 +152,8 @@ public class AlumnoDao implements Dao<Alumno> {
      * @return (Element)
      */
     private Element createData(String tag, String data) {
-        Element id = document.createElement("id");
-        id.appendChild(document.createTextNode(data));
-        return id;
+        Element e = document.createElement(tag);
+        e.appendChild(document.createTextNode(data));
+        return e;
     }
 }

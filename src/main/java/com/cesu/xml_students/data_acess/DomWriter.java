@@ -34,8 +34,10 @@ public class DomWriter {
         try {
             TransformerFactory factory = TransformerFactory.newInstance();
             Transformer transformer = factory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // enable indentation
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2"); // set indentation amount
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
 
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(new File(outFilePath));

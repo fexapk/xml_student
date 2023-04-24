@@ -5,7 +5,6 @@ import java.util.Scanner;
 import com.cesu.xml_students.data_acess.*;
 import com.cesu.xml_students.pojo.*;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -26,13 +25,14 @@ public class App
         AlumnoDao dao = new AlumnoDao(reader.getDocument());
 
         while (running) {
+            System.out.print(MENU);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline character
             switch (choice) {
                 case 1:
                     // Read student data from file
                     List<Alumno> data = dao.getAll();
-                    data.forEach(d -> System.out.println(d));
+                    data.forEach(d -> printYellow(d.toString()));
                     break;
                 case 2:
                     // Add a new student
@@ -49,21 +49,25 @@ public class App
                     // Update student information
                     System.out.println("update Id:");
                     int updateId = scanner.nextInt();
-                    System.out.println(dao.get(updateId));
+                    printYellow(String.valueOf(dao.get(updateId)));
                     dao.update(updateId, getNewAlumno(scanner));
                     break;
                 case 5:
                     // Display student information
                     System.out.println("Id:");
                     int id = scanner.nextInt();
-                    System.out.println(dao.get(id));
+                    Alumno alumno = dao.get(id);
+                    if (alumno == null)
+                        printYellow("No studetn with id " + id);
+                    else 
+                        printYellow(alumno.toString());
                     break;
                 case 6:
                     DomWriter writer = new DomWriter(FILE_PATH, reader.getDocument());
                     if (writer.save())
-                        System.out.println("File saved succesfully!");
+                        printYellow("File saved succesfully!");
                     else 
-                        System.out.println("Something went wrong");
+                        printYellow("Something went wrong");
                     // Save changes to file
                     break;
                 case 0:
@@ -78,7 +82,7 @@ public class App
         scanner.close();
     }
 
-    private static final String FILE_PATH = ".\\data_test\\alumnos.xml";
+    private static final String FILE_PATH = "src/data_test/alumnos_test.xml";
 
     private static final String MENU = 
         "--------------------------------------\n"
@@ -113,5 +117,12 @@ public class App
         
         return new Alumno(id, nombre, apellido, grado, fechaFin);
     }
+
+    public static void printYellow(String message) {
+        System.out.print("\u001B[33m"); // ANSI escape code for yellow color
+        System.out.print(message);
+        System.out.print("\u001B[0m\n"); // ANSI escape code to reset color
+    }
+    
    
 }

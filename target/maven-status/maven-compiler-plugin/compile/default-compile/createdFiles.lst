@@ -1,6 +1,6 @@
-com/cesu/xml_students/pojo/Alumno.class
-com/cesu/xml_students/App.class
-com/cesu/xml_students/data_acess/Dao.class
-com/cesu/xml_students/data_acess/DomReader.class
-com/cesu/xml_students/data_acess/DomWriter.class
-com/cesu/xml_students/data_acess/AlumnoDao.class
+com\cesu\xml_students\data_acess\AlumnoDao.class
+com\cesu\xml_students\data_acess\Dao.class
+com\cesu\xml_students\data_acess\DomWriter.class
+com\cesu\xml_students\pojo\Alumno.class
+com\cesu\xml_students\App.class
+com\cesu\xml_students\data_acess\DomReader.class
